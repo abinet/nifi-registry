@@ -23,6 +23,6 @@ prop_replace () {
   sed -i -e "s|^$1=.*$|$1=$2|"  ${target_file}
 }
 
-# NIFI_HOME is defined by an ENV command in the backing Dockerfile
+# NIFI_REGISTRY_HOME is defined by an ENV command in the backing Dockerfile
 export nifi_registry_props_file=${NIFI_REGISTRY_HOME}/conf/nifi-registry.properties
 export hostname=$(hostname)

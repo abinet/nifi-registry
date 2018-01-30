@@ -20,8 +20,25 @@ scripts_dir='/opt/nifi-registry/scripts'
 [ -f "${scripts_dir}/common.sh" ] && . "${scripts_dir}/common.sh"
 
 # Establish baseline properties
-prop_replace 'nifi.registry.web.http.port'      '18080'
-prop_replace 'nifi.registry.web.http.host'     "${hostname}"
+prop_replace 'nifi.registry.web.http.port'      "${NIFI_REGISTRY_WEB_HTTP_PORT:-18080}"
+prop_replace 'nifi.registry.web.http.host'      "${NIFI_REGISTRY_WEB_HTTP_HOST:-$HOSTNAME}"
+
+# Check if we are secured or unsecured
+case ${AUTH} in
+    tls)
+        echo 'Enabling Two-Way SSL user authentication'
+        . "${scripts_dir}/secure.sh"
+        ;;
+    ldap)
+        echo 'Enabling LDAP user authentication'
+        # Reference ldap-provider in properties
+        prop_replace 'nifi.security.user.login.identity.provider' 'ldap-provider'
+        prop_replace 'nifi.security.needClientAuth' 'WANT'
+
+        . "${scripts_dir}/secure.sh"
+        . "${scripts_dir}/update_login_providers.sh"
+        ;;
+esac
 
 # Continuously provide logs so that 'docker logs' can produce them
 tail -F "${NIFI_REGISTRY_HOME}/logs/nifi-registry-app.log" &
