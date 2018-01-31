@@ -52,5 +52,5 @@ prop_replace 'nifi.registry.web.https.port'  "${NIFI_REGISTRY_WEB_HTTPS_PORT:-18
 prop_replace 'nifi.registry.web.https.host'  "${NIFI_REGISTRY_WEB_HTTPS_HOST:-$HOSTNAME}"
 
 # Establish initial user and an associated admin identity
-sed -i -e 's|<property name="Initial User Identity 1"></property>|<property name="Initial User Identity 1">'"${INITIAL_ADMIN_IDENTITY}"'</property>|'  ${NIFI_REGISTRY_HOME}/conf/authorizers.xml
-sed -i -e 's|<property name="Initial Admin Identity"></property>|<property name="Initial Admin Identity">'"${INITIAL_ADMIN_IDENTITY}"'</property>|'  ${NIFI_REGISTRY_HOME}/conf/authorizers.xml
+sed -i -e 's|<property name="Initial User Identity 1">.*</property>|<property name="Initial User Identity 1">'"${INITIAL_ADMIN_IDENTITY}"'</property>|'  ${NIFI_REGISTRY_HOME}/conf/authorizers.xml
+sed -i -e 's|<property name="Initial Admin Identity">.*</property>|<property name="Initial Admin Identity">'"${INITIAL_ADMIN_IDENTITY}"'</property>|'  ${NIFI_REGISTRY_HOME}/conf/authorizers.xml
