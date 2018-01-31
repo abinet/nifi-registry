@@ -15,8 +15,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-login_providers_file=${NIFI_REGISTRY_HOME}/conf/login-identity-providers.xml
-property_xpath='//loginIdentityProviders/provider/property'
+login_providers_file=${NIFI_REGISTRY_HOME}/conf/identity-providers.xml
+property_xpath='//identityProviders/provider/property'
 
 # Update a given property in the login-identity-providers file if a value is specified
 edit_property() {
@@ -29,7 +29,7 @@ edit_property() {
 }
 
 # Remove comments to enable the ldap-provider
-sed -i '/To enable the ldap-provider remove/d' "${login_providers_file}"
+sed -i '/To enable the ldap-identity-provider remove/d' "${login_providers_file}"
 
 edit_property 'Authentication Strategy'     "${LDAP_AUTHENTICATION_STRATEGY}"
 edit_property 'Manager DN'                  "${LDAP_MANAGER_DN}"

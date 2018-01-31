@@ -36,7 +36,7 @@ RUN groupadd -g ${GID} nifi || groupmod -n nifi `getent group ${GID} | cut -d: -
     && useradd --shell /bin/bash -u ${UID} -g ${GID} -m nifi \
     && chown -R nifi:nifi ${NIFI_REGISTRY_BASE_DIR} \
     && apt-get update -y \
-    && apt-get install -y curl
+    && apt-get install -y curl jq xmlstarlet
 
 USER nifi
 
@@ -48,7 +48,7 @@ RUN curl -fSL ${MIRROR}/${NIFI_REGISTRY_BINARY_URL} -o ${NIFI_REGISTRY_BASE_DIR}
     && chown -R nifi:nifi ${NIFI_REGISTRY_HOME}
 
 # Web HTTP(s) ports
-EXPOSE 18080
+EXPOSE 18080 18443
 
 WORKDIR ${NIFI_REGISTRY_HOME}
 
