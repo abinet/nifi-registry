@@ -36,7 +36,8 @@ RUN groupadd -g ${GID} nifi || groupmod -n nifi `getent group ${GID} | cut -d: -
     && useradd --shell /bin/bash -u ${UID} -g ${GID} -m nifi \
     && chown -R nifi:nifi ${NIFI_REGISTRY_BASE_DIR} \
     && apt-get update -y \
-    && apt-get install -y curl
+    && apt-get install -y curl \
+    && apt-get install -y jq xmlstarlet
 
 USER nifi
 
