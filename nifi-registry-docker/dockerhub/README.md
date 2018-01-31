@@ -122,3 +122,6 @@ can be published to the host.
 | HTTP Port                | nifi.web.http.port            | 18080  |
 | HTTPS Port               | nifi.web.https.port           | 18443  |
 
+The following base image is used for NiFi-Registry, which differs from the NiFi Docker image:
+    
+    openjdk:8-jdk-slim
