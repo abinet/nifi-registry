@@ -32,8 +32,8 @@ case ${AUTH} in
     ldap)
         echo 'Enabling LDAP user authentication'
         # Reference ldap-provider in properties
-        prop_replace 'nifi.security.user.login.identity.provider' 'ldap-provider'
-        prop_replace 'nifi.security.needClientAuth' 'WANT'
+        prop_replace 'nifi.registry.security.identity.provider' 'ldap-identity-provider'
+        prop_replace 'nifi.registry.security.needClientAuth' 'false'
 
         . "${scripts_dir}/secure.sh"
         . "${scripts_dir}/update_login_providers.sh"
